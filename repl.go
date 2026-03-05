@@ -15,14 +15,16 @@ func dorepl(){
 		v := meow.Text()
 		k := standard(v)
 		
-		switch k[0]{
-		case "exit":
-			os.Exit(0)
-		case "help":
-			fmt.Println("Available commands: exit, help")
-		default:
-			fmt.Println("Unknown command")
+		availablecommands := getcommands()
+		
+		command , ok := availablecommands[k[0]]
+
+		if !ok{
+			fmt.Println("Invalid Command")
+			continue
 		}
+
+		command.callback()
 	}
 }
 
